@@ -2,6 +2,8 @@
 
 A structured record of project experiences. Not a portfolio, not a resume, not a self-introduction. **A source layer.** Outputs (portfolio website, resume, application essays) are produced elsewhere by reading from this library.
 
+> **Operator's guide**: see [`USAGE.md`](USAGE.md) for task-oriented workflow, kickoff-message templates, and common gotchas. This README covers structure; `USAGE.md` covers usage.
+
 ## What this is
 
 - Facts, evidence, and insights about each project — recorded once, structured the same way every time.
@@ -32,11 +34,19 @@ Run them in that order, per project. See each skill's `SKILL.md` for usage.
 
 ## How to produce outputs from this
 
-Use the skill `compose-output`. Inputs: a target (job posting, essay prompt, portfolio section) + selection criteria. Output: a draft that cites which library chapters/lines were used. **The skill does not modify library contents.** New facts surfaced during output composition flow back via `interview-user`, not directly.
+Use the skill `compose-output`. Inputs: a target (job posting, essay prompt, portfolio section) + selection criteria. Output: a draft saved to `outputs/<slug>/<target-type>-<lang>.md` that cites which library chapters/lines were used. **The skill does not modify library contents.** New facts surfaced during output composition flow back via `interview-user`, not directly.
+
+## Where things live
+
+- `projects/<slug>/` — library content (source of truth).
+- `outputs/<slug>/` — derived compose-output artifacts (regenerable; don't edit directly).
+- `_meta/` — conventions, chapter catalog, disclosure levels, sensitivity rules.
+- `skills/` — Claude Code skill specs.
+- `CLAUDE.md`, `USAGE.md` — LLM-facing and human-facing instructions respectively.
 
 ## Conventions in one paragraph
 
-Every claim in this library is tagged `[fact]`, `[estimate]`, or `[retrospective]`. Numbers always carry a measurement method and date. Sensitive content follows `_meta/sensitivity_rules.md`. Every file declares a disclosure level (`<!-- disclosure: <level> -->`). Full details: `_meta/library_conventions.md`.
+Every claim in this library is tagged `[fact]`, `[estimate]`, or `[retrospective]`. Numbers always carry a measurement method and date. Sensitive content follows `_meta/sensitivity_rules.md` (ships with sensible defaults; projects may override). Every file declares a disclosure level (`<!-- disclosure: <level> -->`). Full details: `_meta/library_conventions.md`.
 
 ## Change log
 

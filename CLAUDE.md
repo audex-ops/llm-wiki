@@ -15,7 +15,7 @@ The directory `skills/` contains skill specifications. Before performing any ope
 
 `_meta/library_conventions.md` is the authoritative rule set for content. Read it before writing into any file under `projects/`. Violations are bugs.
 
-`_meta/sensitivity_rules.md` is the authoritative rule set for what content is permitted. Apply project-specific overrides.
+`_meta/sensitivity_rules.md`, if present, is the authoritative rule set for what content is permitted. The repository ships with sensible defaults; project-specific overrides go in the project's `00_context.md` under "Sensitivity overrides".
 
 `_meta/chapter_catalog.md` defines the only file types permitted under `projects/<slug>/`. Do not create ad-hoc files.
 

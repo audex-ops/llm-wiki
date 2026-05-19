@@ -84,3 +84,26 @@ Project chapters are limited to those defined in `chapter_catalog.md`. To add a 
 ## 10. Self-references
 
 The author refers to themselves consistently — see `profile.md` for the chosen form. Skills follow whatever convention is in profile.
+
+## 11. Chapter-internal ordering — decisions in `04`
+
+Decision records (`04_decisions.md`) are grouped into four sections, in this order:
+
+1. **System-design decisions** — architecture-level choices: pipeline shape, identity/security primitives, state-machine patterns, transport choices, cost-control mechanisms tied to product design.
+2. **Performance and data-access decisions** — query patterns, aggregation strategies, caching / precomputation, index choices.
+3. **Browser / client / external-integration decisions** — extension behavior, third-party API workarounds, host-site interaction, UX repair.
+4. **Process, infrastructure, and lifecycle decisions** — deployment topology, CI/CD choices, code-quality automation, mode transitions.
+
+Sections appear in this order because system-design depth carries the most weight for portfolio output and interview discussion, and the order also follows how a reader naturally reads down from "what is this system" to "how is it operated."
+
+Within each section, individual decisions are ordered at the author's discretion. A reasonable default: most-cross-referenced from other chapters first.
+
+`compose-output` may resequence decisions for a specific target (e.g., interview-prep can lead with the highest-stakes decision regardless of section). The storage form in `04_decisions.md` follows the section order above; output-time reordering does not flow back.
+
+If a project has zero decisions in a section, omit the section. Do not insert an empty header.
+
+D-numbers (`D1`, `D2`, ...) are stable identifiers — once assigned, do not renumber when the chapter is re-ordered. Cross-chapter references (`R*` in chapter 06, V* in chapter 14, etc.) depend on D-number stability.
+
+## 12. Chapter-internal ordering — retrospective in `06`
+
+Retrospective items (`06_retrospective.md`) are numbered `R1`, `R2`, ... and each MUST cross-reference at least one decision in chapter 04 (`Cross-reference: chapter 04 D<n>`) or one outcome in chapter 05. "Floating regrets" with no anchor in earlier chapters are not allowed — they violate the source-of-truth chain that lets `compose-output` and external readers verify the judgment against contemporaneous decisions.
