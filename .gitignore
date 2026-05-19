@@ -1,0 +1,8 @@
+# Personal identity — never commit
+_meta/profile.md
+
+# Optional friction log if you keep one
+_meta/friction_log.md
+
+# Claude Code
+.claude/
