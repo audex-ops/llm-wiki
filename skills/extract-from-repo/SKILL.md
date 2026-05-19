@@ -16,6 +16,20 @@ Do NOT use this skill to write evaluative content. It extracts facts only.
 
 If any input is missing, ask once with all missing items in a single ask_user_input call.
 
+## Source priority
+
+When facts conflict between sources, resolve in this order (highest to lowest):
+
+1. **Verifiable code / git artifacts** — source code, schema files, migration files, build configs, commit history, `git log`, manifest files. Authoritative — these either are or are not in the repo, and the skill can re-check them at any time.
+2. **User chat in the same conversation** — interview-grade. When the user provides context (project background, lifecycle, decisions, retrospectives, named SHAs, outcomes), treat it as a primary fact source and write it into chapters tagged `[fact] [user-supplied]`. Do not defer this content to a separate `interview-user` pass when the chat has already supplied it.
+3. **Repo `README`, `docs/`, in-repo wiki, doc comments** — secondary. These may be post-hoc, aspirational, drifted from current code, or describe abandoned plans. The README is read for orientation only; it does not get to dictate facts.
+
+When repo docs conflict with user chat, the user wins. Record the discrepancy as "the README claims X but the user states Y; user-supplied is treated as authoritative", not as "open question to resolve later".
+
+When repo docs conflict with code / git, code wins. If `README.md` claims a `KafkaConsumer` but the repo has no Kafka dependency, the README is wrong.
+
+Tag annotations reflect the source: `[auto-extracted: <path or command>]` for sources of type 1; `[user-supplied]` for type 2; `[auto-extracted: README]` is permitted only when the README claim is also corroborated by type 1 or type 2.
+
 ## Operating modes
 
 ### Mode A: full (default)
@@ -120,5 +134,6 @@ End with: "Ready for `interview-user`. Continue?"
 - Never write evaluative language. If commit message says "fix critical bug", the skill writes "fixed bug labeled critical by author at commit time" not "resolved critical issue".
 - Never invent team member names. Use roles only.
 - If the user's identity (git author) matches < 5% of commits in the scoped period, stop and confirm with the user before proceeding — likely wrong identity provided.
-- Respect `_meta/sensitivity_rules.md`. Apply project-specific overrides before writing.
+- Respect `_meta/sensitivity_rules.md` if present. Apply project-specific overrides before writing.
 - Disclosure level for files created/modified by this skill: `interview-only` (default).
+- **Never treat a repo `README` / `docs/` claim as `[fact]` standalone.** Corroborate via code, git, or user chat. See "Source priority" above.
